@@ -74,9 +74,8 @@
 				<artifactId>insurance-domain</artifactId>
 				<version>${insurance-domain.version}</version>
 			</dependency>
-			<!-- client -->
 			<dependency>
-				<groupId>${project.groupId}</groupId>
+				<groupId>tech.lapsa.insurance</groupId>
 				<artifactId>insurance-dao-client</artifactId>
 				<version>${insurance-dao-client.version}</version>
 			</dependency>
