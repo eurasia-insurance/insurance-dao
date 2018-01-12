@@ -15,7 +15,6 @@
 	<name>Insurance Lib : DAO</name>
 
 	<modules>
-		<module>client</module>
 		<module>beans</module>
 		<module>app</module>
 	</modules>
@@ -29,6 +28,8 @@
 		<patterns-dao.version>1.1</patterns-dao.version>
 		<insurance-domain.version>2.4</insurance-domain.version>
 		<lapsa-arquillian-test.version>1.1</lapsa-arquillian-test.version>
+		<!-- client -->
+		<insurance-dao-client.version>1.2-SNAPSHOT</insurance-dao-client.version>
 	</properties>
 
 	<dependencyManagement>
@@ -73,12 +74,13 @@
 				<artifactId>insurance-domain</artifactId>
 				<version>${insurance-domain.version}</version>
 			</dependency>
-			<!-- own -->
+			<!-- client -->
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>insurance-dao-client</artifactId>
-				<version>${project.version}</version>
+				<version>${insurance-dao-client.version}</version>
 			</dependency>
+			<!-- own -->
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>insurance-dao</artifactId>
