@@ -26,9 +26,8 @@
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
-		<!-- own -->
 		<dependency>
-			<groupId>${project.groupId}</groupId>
+			<groupId>tech.lapsa.insurance</groupId>
 			<artifactId>insurance-dao-client</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>
