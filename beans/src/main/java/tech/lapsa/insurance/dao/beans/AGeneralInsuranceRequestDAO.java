@@ -60,9 +60,14 @@ public abstract class AGeneralInsuranceRequestDAO<T extends InsuranceRequest>
 		.map(x -> cb.equal(root.get(InsuranceRequest_.payment).get(PaymentData_.status), x)) //
 		.ifPresent(whereOptions::add);
 
-	// payment external Id
+	// payment invoice number
 	filter.optionalPaymentInvoiceNumber() //
 		.map(x -> cb.equal(root.get(InsuranceRequest_.payment).get(PaymentData_.invoiceNumber), x)) //
+		.ifPresent(whereOptions::add);
+
+	// payment reference
+	filter.optPaymentReference() //
+		.map(x -> cb.equal(root.get(InsuranceRequest_.payment).get(PaymentData_.reference), x)) //
 		.ifPresent(whereOptions::add);
 
 	// transaction status
