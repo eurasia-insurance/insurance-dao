@@ -23,12 +23,12 @@
 		<!-- BOMS -->
 		<javax-javaee-bom.version>7.0a</javax-javaee-bom.version>
 		<payara-bom.version>4.1.2-2</payara-bom.version>
-		<java-commons.version>1.2-SNAPSHOT</java-commons.version>
+		<java-commons.version>1.2</java-commons.version>
 		<!-- tech -->
-		<patterns-dao.version>1.2-SNAPSHOT</patterns-dao.version>
+		<patterns-dao.version>1.2</patterns-dao.version>
 		<lapsa-arquillian-test.version>1.1</lapsa-arquillian-test.version>
 		<!-- EJB clients -->
-		<insurance-dao-client.version>1.2-SNAPSHOT</insurance-dao-client.version>
+		<insurance-dao-client.version>1.2</insurance-dao-client.version>
 	</properties>
 
 	<dependencyManagement>
