@@ -3,6 +3,7 @@ package tech.lapsa.insurance.dao.beans;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -15,6 +16,7 @@ import tech.lapsa.insurance.dao.CompanyPointOfSaleDAO.CompanyPointOfSaleDAOLocal
 import tech.lapsa.insurance.dao.CompanyPointOfSaleDAO.CompanyPointOfSaleDAORemote;
 
 @Stateless(name = CompanyPointOfSaleDAO.BEAN_NAME)
+@Interceptors(LoggingInterceptor.class)
 public class CompanyPointOfSaleDAOBean
 	extends ABaseDAO<CompanyPointOfSale, Integer>
 	implements CompanyPointOfSaleDAOLocal, CompanyPointOfSaleDAORemote {
