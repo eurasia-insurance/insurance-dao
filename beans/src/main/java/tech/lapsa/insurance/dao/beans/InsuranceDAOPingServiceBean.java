@@ -7,6 +7,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.CacheRetrieveMode;
 import javax.persistence.CacheStoreMode;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -21,6 +22,7 @@ import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.java.commons.function.MyMaps;
 
 @Stateless(name = InsuranceDAOPingService.BEAN_NAME)
+@Interceptors(LoggingInterceptor.class)
 public class InsuranceDAOPingServiceBean implements InsuranceDAOPingServiceLocal, InsuranceDAOPingServiceRemote {
 
     @PersistenceContext(unitName = InsuranceConstants.PERSISTENCE_UNIT_NAME)
