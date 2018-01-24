@@ -12,7 +12,7 @@ import tech.lapsa.insurance.dao.CallbackRequestDAO.CallbackRequestDAORemote;
 @Stateless(name = CallbackRequestDAO.BEAN_NAME)
 @Interceptors(LoggingInterceptor.class)
 public class CallbackRequestDAOBean
-	extends AGeneralRequestDAO<CallbackRequest>
+	extends AGeneralInsuranceRequestDAO<CallbackRequest>
 	implements CallbackRequestDAOLocal, CallbackRequestDAORemote {
 
     public CallbackRequestDAOBean() {
