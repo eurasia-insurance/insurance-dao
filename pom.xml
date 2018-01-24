@@ -28,7 +28,7 @@
 		<patterns-dao.version>1.2.1</patterns-dao.version>
 		<lapsa-arquillian-test.version>1.1</lapsa-arquillian-test.version>
 		<!-- EJB clients -->
-		<insurance-dao-client.version>1.2.2-SNAPSHOT</insurance-dao-client.version>
+		<insurance-dao-client.version>1.2.2</insurance-dao-client.version>
 	</properties>
 
 	<dependencyManagement>
