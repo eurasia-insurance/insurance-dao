@@ -275,11 +275,6 @@ public abstract class AGeneralRequestDAO<T extends Request>
 	if (filter.getRequestStatus() != null)
 	    whereOptions.add(cb.equal(root.get(Request_.status), filter.getRequestStatus()));
 
-	// request source
-	filter.optionalRequestSource() //
-		.map(x -> cb.equal(root.get(Request_.source), x)) //
-		.ifPresent(whereOptions::add);
-
 	// progress status
 	if (filter.getProgressStatus() != null)
 	    whereOptions.add(cb.equal(root.get(Request_.progressStatus), filter.getProgressStatus()));
