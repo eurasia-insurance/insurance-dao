@@ -7,9 +7,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
-import tech.lapsa.insurance.dao.InsuranceDAOPingService.InsuranceDAOPingServiceLocal;
 import tech.lapsa.insurance.dao.beans.EntityManagerControlBean;
-import tech.lapsa.java.commons.exceptions.IllegalState;
 
 @Named("control")
 @RequestScoped
@@ -26,12 +24,8 @@ public class ControlCDIBean implements Serializable {
 	return "home";
     }
 
-    @EJB
-    private InsuranceDAOPingServiceLocal pingService;
-
-    public String doPingDatabase() throws IllegalState {
-	pingService.ping();
+    public String doPing() {
+	bean.ping();
 	return "home";
     }
-
 }
