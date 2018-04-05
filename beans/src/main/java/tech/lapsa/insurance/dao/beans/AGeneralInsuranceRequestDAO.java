@@ -70,6 +70,11 @@ public abstract class AGeneralInsuranceRequestDAO<T extends InsuranceRequest>
 		.map(x -> cb.equal(root.get(InsuranceRequest_.payment).get(PaymentData_.reference), x)) //
 		.ifPresent(whereOptions::add);
 
+	// payment method name
+	Predictates.textMatches(cb, root.get(InsuranceRequest_.payment).get(PaymentData_.methodName),
+		filter.getPaymentMethodNameMask()) //
+		.ifPresent(whereOptions::add);
+
 	// transaction status
 	filter.optionalTransactionStatus() //
 		.map(x -> cb.equal(root.get(InsuranceRequest_.transactionStatus), x)) //
