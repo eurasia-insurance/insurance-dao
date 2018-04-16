@@ -106,8 +106,10 @@ public class UserDAOBean
 	final CriteriaBuilder cb = em.getCriteriaBuilder();
 	final CriteriaQuery<User> cq = cb.createQuery(entityClass);
 	final Root<Request> root = cq.from(Request.class);
-	cq.select(root.get(Request_.createdBy))
-		.distinct(true);
+	cq.select(root.get(Request_.createdBy)) //
+		.groupBy(root.get(Request_.createdBy)) //
+		.distinct(true) //
+	;
 	final TypedQuery<User> q = em.createQuery(cq);
 	return q.getResultList();
     }
@@ -124,8 +126,10 @@ public class UserDAOBean
 	final CriteriaBuilder cb = em.getCriteriaBuilder();
 	final CriteriaQuery<User> cq = cb.createQuery(entityClass);
 	final Root<Request> root = cq.from(Request.class);
-	cq.select(root.get(Request_.acceptedBy))
-		.distinct(true);
+	cq.select(root.get(Request_.acceptedBy)) //
+		.groupBy(root.get(Request_.acceptedBy))
+		.distinct(true) //
+	;
 	final TypedQuery<User> q = em.createQuery(cq);
 	return q.getResultList();
     }
@@ -142,8 +146,10 @@ public class UserDAOBean
 	final CriteriaBuilder cb = em.getCriteriaBuilder();
 	final CriteriaQuery<User> cq = cb.createQuery(entityClass);
 	final Root<Request> root = cq.from(Request.class);
-	cq.select(root.get(Request_.completedBy))
-		.distinct(true);
+	cq.select(root.get(Request_.completedBy)) //
+		.groupBy(root.get(Request_.completedBy)) //
+		.distinct(true) //
+	;
 	final TypedQuery<User> q = em.createQuery(cq);
 	return q.getResultList();
     }
