@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>tech.lapsa.insurance</groupId>
 		<artifactId>insurance-dao-root</artifactId>
-		<version>1.2.9.2-SNAPSHOT</version>
+		<version>1.3-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>insurance-dao-webapp</artifactId>
@@ -16,8 +16,7 @@
 		<dependency>
 			<groupId>tech.lapsa.insurance</groupId>
 			<artifactId>insurance-dao-client</artifactId>
-			<scope>compile</scope>
-			<optional>false</optional>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>tech.lapsa.insurance</groupId>
