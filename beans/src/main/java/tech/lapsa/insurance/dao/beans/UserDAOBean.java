@@ -23,6 +23,7 @@ import tech.lapsa.insurance.dao.UserDAO.UserDAOLocal;
 import tech.lapsa.insurance.dao.UserDAO.UserDAORemote;
 import tech.lapsa.insurance.dao.UserLoginDAO.UserLoginDAOLocal;
 import tech.lapsa.java.commons.exceptions.IllegalArgument;
+import tech.lapsa.java.commons.function.MyCollectors;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.patterns.dao.NotFound;
 
@@ -106,10 +107,17 @@ public class UserDAOBean
 	final CriteriaBuilder cb = em.getCriteriaBuilder();
 	final CriteriaQuery<User> cq = cb.createQuery(entityClass);
 	final Root<Request> root = cq.from(Request.class);
-	cq.select(root.get(Request_.createdBy))
-		.distinct(true);
+	cq.select(root.get(Request_.createdBy)) //
+		.groupBy(root.get(Request_.createdBy)) //
+	// not used because it is a long request for MySql. Java Stream API used
+	// to make it distinct
+	// .distinct(true) //
+	;
 	final TypedQuery<User> q = em.createQuery(cq);
-	return q.getResultList();
+	final List<User> r = q.getResultList();
+	return r.stream() //
+		.distinct()
+		.collect(MyCollectors.unmodifiableList());
     }
 
     //
@@ -124,10 +132,17 @@ public class UserDAOBean
 	final CriteriaBuilder cb = em.getCriteriaBuilder();
 	final CriteriaQuery<User> cq = cb.createQuery(entityClass);
 	final Root<Request> root = cq.from(Request.class);
-	cq.select(root.get(Request_.acceptedBy))
-		.distinct(true);
+	cq.select(root.get(Request_.acceptedBy)) //
+		.groupBy(root.get(Request_.acceptedBy))
+	// not used because it is a long request for MySql. Java Stream API used
+	// to make it distinct
+	// .distinct(true) //
+	;
 	final TypedQuery<User> q = em.createQuery(cq);
-	return q.getResultList();
+	final List<User> r = q.getResultList();
+	return r.stream() //
+		.distinct()
+		.collect(MyCollectors.unmodifiableList());
     }
 
     //
@@ -142,10 +157,17 @@ public class UserDAOBean
 	final CriteriaBuilder cb = em.getCriteriaBuilder();
 	final CriteriaQuery<User> cq = cb.createQuery(entityClass);
 	final Root<Request> root = cq.from(Request.class);
-	cq.select(root.get(Request_.completedBy))
-		.distinct(true);
+	cq.select(root.get(Request_.completedBy)) //
+		.groupBy(root.get(Request_.completedBy)) //
+	// not used because it is a long request for MySql. Java Stream API used
+	// to make it distinct
+	// .distinct(true) //
+	;
 	final TypedQuery<User> q = em.createQuery(cq);
-	return q.getResultList();
+	final List<User> r = q.getResultList();
+	return r.stream() //
+		.distinct()
+		.collect(MyCollectors.unmodifiableList());
     }
 
     //
