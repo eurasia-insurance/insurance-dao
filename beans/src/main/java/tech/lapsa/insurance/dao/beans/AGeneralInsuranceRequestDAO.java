@@ -75,6 +75,16 @@ public abstract class AGeneralInsuranceRequestDAO<T extends InsuranceRequest>
 		filter.getPaymentMethodNameMask()) //
 		.ifPresent(whereOptions::add);
 
+	// payment card
+	Predictates.textMatches(cb, root.get(InsuranceRequest_.payment).get(PaymentData_.card),
+		filter.getPaymentCard()) //
+		.ifPresent(whereOptions::add);
+
+	// payment card bank
+	filter.optPaymentCardBank() //
+		.map(x -> cb.equal(root.get(InsuranceRequest_.payment).get(PaymentData_.cardBank), x)) //
+		.ifPresent(whereOptions::add);
+
 	// transaction status
 	filter.optionalTransactionStatus() //
 		.map(x -> cb.equal(root.get(InsuranceRequest_.transactionStatus), x)) //
