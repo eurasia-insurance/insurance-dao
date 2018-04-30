@@ -13,6 +13,8 @@ import javax.persistence.PersistenceContext;
 import com.lapsa.insurance.jpa.InsuranceConstants;
 import com.lapsa.insurance.jpa.InsuranceVersion;
 
+import tech.lapsa.java.commons.exceptions.IllegalState;
+import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.java.commons.function.MyMaps;
 
 @Stateless
@@ -36,7 +38,11 @@ public class EntityManagerControlBean {
 	    HINT_JAVAX_PERSISTENCE_CACHE_STORE_MODE, CacheStoreMode.REFRESH);
 
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-    public void ping() {
-	em.find(InsuranceVersion.class, 1, NO_CACHE_PROPS);
+    public void ping() throws IllegalState {
+	try {
+	    em.find(InsuranceVersion.class, 1, NO_CACHE_PROPS);
+	} catch (Exception e) {
+	    throw MyExceptions.format(IllegalState::new, "Illegal stae of persistence layer. %1$s throwed with message %2$s", e.getClass(), e.getMessage());
+	}
     }
 }
