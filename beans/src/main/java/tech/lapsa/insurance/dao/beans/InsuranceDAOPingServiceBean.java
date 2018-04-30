@@ -8,11 +8,10 @@ import tech.lapsa.insurance.dao.InsuranceDAOPingService;
 import tech.lapsa.insurance.dao.InsuranceDAOPingService.InsuranceDAOPingServiceLocal;
 import tech.lapsa.insurance.dao.InsuranceDAOPingService.InsuranceDAOPingServiceRemote;
 import tech.lapsa.java.commons.exceptions.IllegalState;
-import tech.lapsa.java.commons.function.MyExceptions;
 
 @Stateless(name = InsuranceDAOPingService.BEAN_NAME)
 @Interceptors(LoggingInterceptor.class)
-//TODO REFACT : Remove this bean. Use EntityManagerControlBean directly
+// TODO REFACT : Remove this bean. Use EntityManagerControlBean directly
 public class InsuranceDAOPingServiceBean implements InsuranceDAOPingServiceLocal, InsuranceDAOPingServiceRemote {
 
     @EJB
@@ -20,11 +19,7 @@ public class InsuranceDAOPingServiceBean implements InsuranceDAOPingServiceLocal
 
     @Override
     public void ping() throws IllegalState {
-	try {
-	    emControl.ping();
-	} catch (Exception e) {
-	    throw MyExceptions.illegalStateFormat(e.getMessage());
-	}
+	emControl.ping();
     }
 
 }
