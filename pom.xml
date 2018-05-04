@@ -9,7 +9,7 @@
 
 	<groupId>tech.lapsa.insurance</groupId>
 	<artifactId>insurance-dao-root</artifactId>
-	<version>1.2.10.1</version>
+	<version>1.2.10.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Insurance Lib : DAO</name>
