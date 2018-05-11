@@ -31,15 +31,49 @@ public abstract class AGeneralInsuranceRequestDAO<T extends InsuranceRequest>
 
     @Override
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    public List<T> findByAgreementNumber(final String agreementNumber) throws IllegalArgument {
+	try {
+	    return findByAgreementNumberQuery(agreementNumber)
+		    .getResultList();
+	} catch (IllegalArgumentException e) {
+	    throw new IllegalArgument(e);
+	}
+    }
+
+    @Override
+    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    public List<T> findByAgreementNumber(final int from, final int limit, final String agreementNumber)
+	    throws IllegalArgument {
+	try {
+	    return _requireLimitedQuery(from, limit, findByAgreementNumberQuery(agreementNumber))
+		    .getResultList();
+	} catch (IllegalArgumentException e) {
+	    throw new IllegalArgument(e);
+	}
+    }
+
+    private TypedQuery<T> findByAgreementNumberQuery(final String agreementNumber) throws IllegalArgumentException {
+	MyStrings.requireNonEmpty(agreementNumber, "agreementNumber");
+	final CriteriaBuilder cb = em.getCriteriaBuilder();
+	final CriteriaQuery<T> cq = cb.createQuery(entityClass);
+	final Root<T> root = cq.from(entityClass);
+	cq.select(root)
+		.where(cb.equal(root.get(InsuranceRequest_.agreementNumber), agreementNumber));
+	final TypedQuery<T> q = em.createQuery(cq);
+	return q;
+    }
+
+    @Override
+    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public List<T> findByPaymentInvoiceNumber(final String invoiceNumber) throws IllegalArgument {
-	return _requireUnlimitedQuery(_findByPaymentInvoiceNumber(invoiceNumber)).getResultList();
+	return _requireUnlimitedQuery(findByPaymentInvoiceNumberQuery(invoiceNumber)).getResultList();
     }
 
     @Override
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public List<T> findByPaymentInvoiceNumber(final int from, final int limit, final String invoiceNumber)
 	    throws IllegalArgument {
-	return _requireLimitedQuery(from, limit, _findByPaymentInvoiceNumber(invoiceNumber)).getResultList();
+	return _requireLimitedQuery(from, limit, findByPaymentInvoiceNumberQuery(invoiceNumber)).getResultList();
     }
 
     // preparer
@@ -103,7 +137,7 @@ public abstract class AGeneralInsuranceRequestDAO<T extends InsuranceRequest>
 
     // queries
 
-    protected TypedQuery<T> _findByPaymentInvoiceNumber(final String invoiceNumber) throws IllegalArgument {
+    protected TypedQuery<T> findByPaymentInvoiceNumberQuery(final String invoiceNumber) throws IllegalArgument {
 	MyStrings.requireNonEmpty(IllegalArgument::new, invoiceNumber, "invoiceNumber");
 	final CriteriaBuilder cb = em.getCriteriaBuilder();
 	final CriteriaQuery<T> cq = cb.createQuery(entityClass);
