@@ -108,9 +108,9 @@
 	</dependencyManagement>
 
 	<scm>
-		<connection>scm:git:https://gitlab.lapsa.tech/lapsa/insurance/dao.git</connection>
-		<developerConnection>scm:git:https://gitlab.lapsa.tech/lapsa/insurance/dao.git</developerConnection>
-		<tag>v1.3.3</tag>
+		<connection>scm:git:https://github.com/eurasia-insurance/insurance-dao.git</connection>
+		<developerConnection>scm:git:https://github.com/eurasia-insurance/insurance-dao.git</developerConnection>
+		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
