@@ -311,10 +311,10 @@ public abstract class AGeneralRequestDAO<T extends Request>
 	    whereOptions
 		    .add(cb.equal(root.get(Request_.createdBy), filter.getCreatedBy()));
 
-	// accepted by
-	if (filter.getAcceptedBy() != null)
+	// picked by
+	if (filter.getPickedBy() != null)
 	    whereOptions
-		    .add(cb.equal(root.get(Request_.acceptedBy), filter.getAcceptedBy()));
+		    .add(cb.equal(root.get(Request_.pickedBy), filter.getPickedBy()));
 
 	// completed by
 	if (filter.getCompletedBy() != null)

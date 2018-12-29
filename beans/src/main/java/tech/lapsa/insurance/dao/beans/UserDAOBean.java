@@ -124,7 +124,7 @@ public class UserDAOBean
 
     @Override
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
-    public List<User> findAllWhoEverAcceptRequest() {
+    public List<User> findAllWhoEverPickedRequest() {
 	return _findAllWhoEverAcceptRequest();
     }
 
@@ -132,8 +132,8 @@ public class UserDAOBean
 	final CriteriaBuilder cb = em.getCriteriaBuilder();
 	final CriteriaQuery<User> cq = cb.createQuery(entityClass);
 	final Root<Request> root = cq.from(Request.class);
-	cq.select(root.get(Request_.acceptedBy)) //
-		.groupBy(root.get(Request_.acceptedBy))
+	cq.select(root.get(Request_.pickedBy)) //
+		.groupBy(root.get(Request_.pickedBy))
 	// not used because it is a long request for MySql. Java Stream API used
 	// to make it distinct
 	// .distinct(true) //
