@@ -95,7 +95,7 @@ public abstract class AGeneralInsuranceRequestDAO<T extends InsuranceRequest>
 		.ifPresent(whereOptions::add);
 
 	// payment invoice number
-	filter.optionalPaymentInvoiceNumber() //
+	filter.optionalInvoiceNumber() //
 		.map(x -> cb.equal(root.get(InsuranceRequest_.payment).get(PaymentData_.invoiceNumber), x)) //
 		.ifPresent(whereOptions::add);
 
