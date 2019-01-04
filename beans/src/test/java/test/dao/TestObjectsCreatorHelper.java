@@ -85,8 +85,8 @@ public class TestObjectsCreatorHelper {
 			personalData.setSurename("Исаев");
 			personalData.setName("Вадим");
 			personalData.setPatronymic("Олегович");
-			personalData.setSex(Sex.MALE);
-			personalData.setDayOfBirth(LocalDate.now());
+			personalData.setGender(Sex.MALE);
+			personalData.setDateOfBirth(LocalDate.now());
 		    }
 		    {
 			final ResidenceData residenceData = driver.getResidenceData();

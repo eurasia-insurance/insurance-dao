@@ -92,13 +92,6 @@ public class UserDAOBean
 
     @Override
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
-    @Deprecated
-    public List<User> findAllWhoCreatedRequest() {
-	return _findAllWhoEverCreatedRequest();
-    }
-
-    @Override
-    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public List<User> findAllWhoEverCreatedRequest() {
 	return _findAllWhoEverCreatedRequest();
     }
