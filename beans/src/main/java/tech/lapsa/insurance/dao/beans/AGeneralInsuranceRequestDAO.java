@@ -119,9 +119,9 @@ public abstract class AGeneralInsuranceRequestDAO<T extends InsuranceRequest>
 		.map(x -> cb.equal(root.get(InsuranceRequest_.payment).get(PaymentData_.cardBank), x)) //
 		.ifPresent(whereOptions::add);
 
-	// transaction status
-	filter.optionalTransactionStatus() //
-		.map(x -> cb.equal(root.get(InsuranceRequest_.transactionStatus), x)) //
+	// contract status
+	filter.optionalContractStatus() //
+		.map(x -> cb.equal(root.get(InsuranceRequest_.contractStatus), x)) //
 		.ifPresent(whereOptions::add);
 
 	// agreement number mask
