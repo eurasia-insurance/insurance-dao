@@ -129,9 +129,9 @@ public abstract class AGeneralInsuranceRequestDAO<T extends InsuranceRequest>
 		filter.getAgreementNumberMask()) //
 		.ifPresent(whereOptions::add);
 
-	// transaction problem
-	filter.optionalTransactionProblem() //
-		.map(x -> cb.equal(root.get(InsuranceRequest_.transactionProblem), x)) //
+	// request cancelation reason
+	filter.optionalRequestCancelationReason() //
+		.map(x -> cb.equal(root.get(InsuranceRequest_.requestCancelationReason), x)) //
 		.ifPresent(whereOptions::add);
     }
 
