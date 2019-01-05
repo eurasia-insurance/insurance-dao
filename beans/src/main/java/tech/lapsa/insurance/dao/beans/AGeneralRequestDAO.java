@@ -20,7 +20,6 @@ import com.lapsa.insurance.domain.Request;
 import com.lapsa.insurance.domain.Request_;
 import com.lapsa.insurance.domain.RequesterData_;
 import com.lapsa.insurance.domain.crm.User;
-import com.lapsa.insurance.elements.RequestStatus;
 
 import tech.lapsa.insurance.dao.GeneralRequestDAO.GeneralRequestDAOLocal;
 import tech.lapsa.insurance.dao.GeneralRequestDAO.GeneralRequestDAORemote;
@@ -46,9 +45,9 @@ public abstract class AGeneralRequestDAO<T extends Request>
 
     @Override
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
-    public List<T> findByStatus(final RequestStatus status) throws IllegalArgument {
+    public List<T> findByArchived(final boolean archived) throws IllegalArgument {
 	try {
-	    return _findByStatus(status);
+	    return _findByArchived(archived);
 	} catch (IllegalArgumentException e) {
 	    throw new IllegalArgument(e);
 	}
@@ -56,9 +55,9 @@ public abstract class AGeneralRequestDAO<T extends Request>
 
     @Override
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
-    public Long countByStatus(final RequestStatus status) throws IllegalArgument {
+    public Long countByArchived(final boolean archived) throws IllegalArgument {
 	try {
-	    return _countByStatus(status);
+	    return _countByArchived(archived);
 	} catch (IllegalArgumentException e) {
 	    throw new IllegalArgument(e);
 	}
@@ -66,9 +65,9 @@ public abstract class AGeneralRequestDAO<T extends Request>
 
     @Override
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
-    public List<T> findByStatus(int from, int limit, final RequestStatus status) throws IllegalArgument {
+    public List<T> findByArchived(int from, int limit, final boolean archived) throws IllegalArgument {
 	try {
-	    return _findByStatus(from, limit, status);
+	    return _findByArchived(from, limit, archived);
 	} catch (IllegalArgumentException e) {
 	    throw new IllegalArgument(e);
 	}
@@ -187,15 +186,15 @@ public abstract class AGeneralRequestDAO<T extends Request>
 
     @Override
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
-    public List<T> findAllOpen() {
+    public List<T> findAllInbox() {
 	return _findAllOpen();
     }
 
     @Override
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
-    public List<T> findAllOpen(int from, int limit) throws IllegalArgument {
+    public List<T> findAllInbox(int from, int limit) throws IllegalArgument {
 	try {
-	    return _findAllOpen(from, limit);
+	    return _findAllInbox(from, limit);
 	} catch (IllegalArgumentException e) {
 	    throw new IllegalArgument(e);
 	}
@@ -213,8 +212,8 @@ public abstract class AGeneralRequestDAO<T extends Request>
 
     @Override
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
-    public Long countAllOpen() {
-	return _countAllOpen();
+    public Long countAllInbox() {
+	return _countAllInbox();
     }
 
     // all
@@ -271,9 +270,9 @@ public abstract class AGeneralRequestDAO<T extends Request>
 		.map(x -> cb.equal(root.get(Request_.requester).get(RequesterData_.idNumber), x)) //
 		.ifPresent(whereOptions::add);
 
-	// request status
-	if (filter.getRequestStatus() != null)
-	    whereOptions.add(cb.equal(root.get(Request_.status), filter.getRequestStatus()));
+	// archived
+	if (filter.getArchived() != null)
+	    whereOptions.add(cb.equal(root.get(Request_.archived), filter.getArchived().booleanValue()));
 
 	// progress status
 	if (filter.getProgressStatus() != null)
@@ -320,22 +319,17 @@ public abstract class AGeneralRequestDAO<T extends Request>
 	if (filter.getCompletedBy() != null)
 	    whereOptions
 		    .add(cb.equal(root.get(Request_.completedBy), filter.getCompletedBy()));
-
-	// closed by
-	if (filter.getClosedBy() != null)
-	    whereOptions
-		    .add(cb.equal(root.get(Request_.closedBy), filter.getClosedBy()));
     }
 
     // byStatus
 
-    private List<T> _findByStatus(final RequestStatus status) {
+    private List<T> _findByArchived(final boolean archived) {
 
 	final CriteriaBuilder cb = em.getCriteriaBuilder();
 	final CriteriaQuery<T> cq = cb.createQuery(entityClass);
 	final Root<T> root = cq.from(entityClass);
 
-	_whereCriteriaByStatus(cb, root, cq, status);
+	_whereCriteriaByStatus(cb, root, cq, archived);
 
 	final TypedQuery<T> q = em.createQuery(cq.select(root));
 
@@ -343,26 +337,26 @@ public abstract class AGeneralRequestDAO<T extends Request>
 		.getResultList();
     }
 
-    private Long _countByStatus(final RequestStatus status) {
+    private Long _countByArchived(final boolean archived) {
 
 	final CriteriaBuilder cb = em.getCriteriaBuilder();
 	final CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 	final Root<T> root = cq.from(entityClass);
 
-	_whereCriteriaByStatus(cb, root, cq, status);
+	_whereCriteriaByStatus(cb, root, cq, archived);
 
 	final TypedQuery<Long> q = em.createQuery(cq.select(cb.count(root)));
 
 	return q.getSingleResult();
     }
 
-    private List<T> _findByStatus(int from, int limit, final RequestStatus status) {
+    private List<T> _findByArchived(int from, int limit, final boolean archived) {
 
 	final CriteriaBuilder cb = em.getCriteriaBuilder();
 	final CriteriaQuery<T> cq = cb.createQuery(entityClass);
 	final Root<T> root = cq.from(entityClass);
 
-	_whereCriteriaByStatus(cb, root, cq, status);
+	_whereCriteriaByStatus(cb, root, cq, archived);
 
 	final TypedQuery<T> q = em.createQuery(cq.select(root));
 
@@ -455,7 +449,7 @@ public abstract class AGeneralRequestDAO<T extends Request>
 		.getResultList();
     }
 
-    private List<T> _findAllOpen(final int from, final int limit) {
+    private List<T> _findAllInbox(final int from, final int limit) {
 
 	final CriteriaBuilder cb = em.getCriteriaBuilder();
 	final CriteriaQuery<T> cq = cb.createQuery(entityClass);
@@ -471,13 +465,13 @@ public abstract class AGeneralRequestDAO<T extends Request>
 
     private ListWithStats<T> _findAllOpenWithStats(final int from, final int limit) {
 
-	final Long count = _countAllOpen();
-	final List<T> list = _findAllOpen(from, limit);
+	final Long count = _countAllInbox();
+	final List<T> list = _findAllInbox(from, limit);
 
 	return new ListWithStats<T>(list, from, limit, count);
     }
 
-    private Long _countAllOpen() {
+    private Long _countAllInbox() {
 
 	final CriteriaBuilder cb = em.getCriteriaBuilder();
 	final CriteriaQuery<Long> cq = cb.createQuery(Long.class);
@@ -587,7 +581,7 @@ public abstract class AGeneralRequestDAO<T extends Request>
 	    final Root<T> root,
 	    final CriteriaQuery<O> cq) {
 	try {
-	    return _whereCriteriaByStatus(cb, root, cq, RequestStatus.OPEN);
+	    return _whereCriteriaByStatus(cb, root, cq, false);
 	} catch (IllegalArgumentException e) {
 	    // it should not happens
 	    throw new EJBException(e.getMessage());
@@ -601,10 +595,9 @@ public abstract class AGeneralRequestDAO<T extends Request>
     private <O> CriteriaQuery<O> _whereCriteriaByStatus(final CriteriaBuilder cb,
 	    final Root<T> root,
 	    final CriteriaQuery<O> cq,
-	    final RequestStatus status) throws IllegalArgumentException {
-	MyObjects.requireNonNull(status, "status");
+	    final boolean archived) throws IllegalArgumentException {
 	return cq //
-		.where(cb.equal(root.get(Request_.status), status));
+		.where(cb.equal(root.get(Request_.archived), archived));
     }
 
     private <O> CriteriaQuery<O> _whereCriteriaByFilter(final CriteriaBuilder cb,
