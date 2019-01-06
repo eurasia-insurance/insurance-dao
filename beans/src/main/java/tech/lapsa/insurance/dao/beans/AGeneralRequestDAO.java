@@ -336,7 +336,7 @@ public abstract class AGeneralRequestDAO<T extends Request>
 	final CriteriaQuery<T> cq = cb.createQuery(entityClass);
 	final Root<T> root = cq.from(entityClass);
 
-	_whereCriteriaByStatus(cb, root, cq, archived);
+	_whereCriteriaByArchived(cb, root, cq, archived);
 
 	final TypedQuery<T> q = em.createQuery(cq.select(root));
 
@@ -350,7 +350,7 @@ public abstract class AGeneralRequestDAO<T extends Request>
 	final CriteriaQuery<Long> cq = cb.createQuery(Long.class);
 	final Root<T> root = cq.from(entityClass);
 
-	_whereCriteriaByStatus(cb, root, cq, archived);
+	_whereCriteriaByArchived(cb, root, cq, archived);
 
 	final TypedQuery<Long> q = em.createQuery(cq.select(cb.count(root)));
 
@@ -363,7 +363,7 @@ public abstract class AGeneralRequestDAO<T extends Request>
 	final CriteriaQuery<T> cq = cb.createQuery(entityClass);
 	final Root<T> root = cq.from(entityClass);
 
-	_whereCriteriaByStatus(cb, root, cq, archived);
+	_whereCriteriaByArchived(cb, root, cq, archived);
 
 	final TypedQuery<T> q = em.createQuery(cq.select(root));
 
@@ -588,7 +588,7 @@ public abstract class AGeneralRequestDAO<T extends Request>
 	    final Root<T> root,
 	    final CriteriaQuery<O> cq) {
 	try {
-	    return _whereCriteriaByStatus(cb, root, cq, false);
+	    return _whereCriteriaByArchived(cb, root, cq, false);
 	} catch (IllegalArgumentException e) {
 	    // it should not happens
 	    throw new EJBException(e.getMessage());
@@ -599,7 +599,7 @@ public abstract class AGeneralRequestDAO<T extends Request>
 	return cq;
     }
 
-    private <O> CriteriaQuery<O> _whereCriteriaByStatus(final CriteriaBuilder cb,
+    private <O> CriteriaQuery<O> _whereCriteriaByArchived(final CriteriaBuilder cb,
 	    final Root<T> root,
 	    final CriteriaQuery<O> cq,
 	    final boolean archived) throws IllegalArgumentException {
