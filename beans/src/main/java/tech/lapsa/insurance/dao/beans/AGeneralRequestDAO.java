@@ -271,8 +271,15 @@ public abstract class AGeneralRequestDAO<T extends Request>
 		.ifPresent(whereOptions::add);
 
 	// archived
-	if (filter.getArchived() != null)
-	    whereOptions.add(cb.equal(root.get(Request_.archived), filter.getArchived().booleanValue()));
+	switch (filter.getShowMode()) {
+	case INBOX:
+	    whereOptions.add(cb.equal(root.get(Request_.archived), false));
+	    break;
+	case ARCHIVED:
+	    whereOptions.add(cb.equal(root.get(Request_.archived), true));
+	    break;
+	case ALL:
+	}
 
 	// progress status
 	if (filter.getProgressStatus() != null)
