@@ -119,9 +119,9 @@ public abstract class AGeneralInsuranceRequestDAO<T extends InsuranceRequest>
 		.map(x -> cb.equal(root.get(InsuranceRequest_.payment).get(PaymentData_.cardBank), x)) //
 		.ifPresent(whereOptions::add);
 
-	// contract status
-	filter.optionalContractStatus() //
-		.map(x -> cb.equal(root.get(InsuranceRequest_.contractStatus), x)) //
+	// insurance request status
+	filter.optionalInsuranceRequestStatus() //
+		.map(x -> cb.equal(root.get(InsuranceRequest_.insuranceRequestStatus), x)) //
 		.ifPresent(whereOptions::add);
 
 	// agreement number mask
@@ -129,9 +129,9 @@ public abstract class AGeneralInsuranceRequestDAO<T extends InsuranceRequest>
 		filter.getAgreementNumberMask()) //
 		.ifPresent(whereOptions::add);
 
-	// request cancelation reason
-	filter.optionalRequestCancelationReason() //
-		.map(x -> cb.equal(root.get(InsuranceRequest_.requestCancelationReason), x)) //
+	// insurance request cancellation reason
+	filter.optionalInsuranceRequestCancellationReason() //
+		.map(x -> cb.equal(root.get(InsuranceRequest_.insuranceRequestCancellationReason), x)) //
 		.ifPresent(whereOptions::add);
     }
 
