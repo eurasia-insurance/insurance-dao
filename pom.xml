@@ -26,6 +26,9 @@
 		<payara-bom.version>20190113r3</payara-bom.version>
 		<java-commons.version>20190113r3</java-commons.version>
 		<!-- tech -->
+		<!-- to be deleted -->
+		<insurance-domain.version>CURRENT-SNAPSHOT</insurance-domain.version>
+		<!-- to be deleted -->
 		<patterns-dao.version>20190113r3</patterns-dao.version>
 		<lapsa-arquillian-test.version>20190113r3</lapsa-arquillian-test.version>
 		<!-- EJB clients -->
@@ -34,6 +37,13 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<!-- to be deleted -->
+			<dependency>
+				<groupId>tech.lapsa.insurance</groupId>
+				<artifactId>insurance-domain</artifactId>
+				<version>${insurance-domain.version}</version>
+			</dependency>
+			<!-- to be deleted -->
 			<!-- BOMS -->
 			<dependency>
 				<groupId>tech.lapsa.javax</groupId>
