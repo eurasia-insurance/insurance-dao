@@ -30,7 +30,7 @@ import tech.lapsa.patterns.dao.NotFound;
 @Stateless(name = UserDAO.BEAN_NAME)
 @Interceptors(LoggingInterceptor.class)
 public class UserDAOBean
-	extends ABaseDAO<User, Integer>
+	extends ABaseDAO<User>
 	implements UserDAOLocal, UserDAORemote {
 
     public UserDAOBean() {

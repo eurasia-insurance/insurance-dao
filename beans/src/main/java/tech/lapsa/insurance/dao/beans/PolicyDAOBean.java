@@ -12,7 +12,7 @@ import tech.lapsa.insurance.dao.PolicyDAO.PolicyDAORemote;
 @Stateless(name = PolicyDAO.BEAN_NAME)
 @Interceptors(LoggingInterceptor.class)
 public class PolicyDAOBean
-	extends ABaseDAO<Policy, Integer>
+	extends ABaseDAO<Policy>
 	implements PolicyDAOLocal, PolicyDAORemote {
 
     public PolicyDAOBean() {
