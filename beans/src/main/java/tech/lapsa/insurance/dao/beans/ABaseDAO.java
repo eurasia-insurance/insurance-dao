@@ -1,16 +1,15 @@
 package tech.lapsa.insurance.dao.beans;
 
-import java.io.Serializable;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.lapsa.insurance.domain.EntitySuperclass;
 import com.lapsa.insurance.jpa.InsuranceConstants;
 
 import tech.lapsa.patterns.dao.beans.AGeneralDAO;
 
-public abstract class ABaseDAO<T extends Serializable, I extends Serializable>
-	extends AGeneralDAO<T, I> {
+public abstract class ABaseDAO<T extends EntitySuperclass>
+	extends AGeneralDAO<T, Integer> {
 
     protected ABaseDAO(final Class<T> entityClazz) {
 	super(entityClazz);
@@ -23,4 +22,10 @@ public abstract class ABaseDAO<T extends Serializable, I extends Serializable>
     protected EntityManager getEntityManager() {
 	return em;
     }
+//
+//    @Override
+//    protected <ET extends T> void beforeSave(ET entity) {
+//	entity.touchUpdated();
+//    }
+    
 }

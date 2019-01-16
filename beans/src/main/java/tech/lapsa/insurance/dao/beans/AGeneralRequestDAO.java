@@ -34,7 +34,7 @@ import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.patterns.dao.beans.Predictates;
 
 public abstract class AGeneralRequestDAO<T extends Request>
-	extends ABaseDAO<T, Integer>
+	extends ABaseDAO<T>
 	implements GeneralRequestDAOLocal<T>, GeneralRequestDAORemote<T> {
 
     public AGeneralRequestDAO(final Class<T> entityClass) {
