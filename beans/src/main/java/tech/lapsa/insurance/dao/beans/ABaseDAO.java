@@ -22,10 +22,10 @@ public abstract class ABaseDAO<T extends EntitySuperclass>
     protected EntityManager getEntityManager() {
 	return em;
     }
-//
-//    @Override
-//    protected <ET extends T> void beforeSave(ET entity) {
-//	entity.touchUpdated();
-//    }
-    
+
+    @Override
+    protected <ET extends T> void beforeSave(ET entity) {
+	entity.touchUpdated();
+    }
+
 }
