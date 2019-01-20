@@ -22,7 +22,6 @@ import com.lapsa.insurance.elements.IdentityCardType;
 import com.lapsa.insurance.elements.InsuranceClassType;
 import com.lapsa.insurance.elements.InsuredAgeClass;
 import com.lapsa.insurance.elements.InsuredExpirienceClass;
-import com.lapsa.insurance.elements.PaymentStatus;
 import com.lapsa.insurance.elements.Sex;
 import com.lapsa.insurance.elements.VehicleAgeClass;
 import com.lapsa.insurance.elements.VehicleClass;
@@ -124,7 +123,6 @@ public class TestObjectsCreatorHelper {
 
 	{
 	    final PaymentData payment = request.getPayment();
-	    payment.setStatus(PaymentStatus.PENDING);
 	    payment.setInvoiceNumber("921321321321");
 	}
 
