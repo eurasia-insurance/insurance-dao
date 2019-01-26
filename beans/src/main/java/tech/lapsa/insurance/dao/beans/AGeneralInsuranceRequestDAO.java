@@ -12,7 +12,6 @@ import javax.persistence.criteria.Root;
 
 import com.lapsa.insurance.domain.InsuranceRequest;
 import com.lapsa.insurance.domain.InsuranceRequest_;
-import com.lapsa.insurance.domain.PaymentData_;
 
 import tech.lapsa.insurance.dao.GeneralInsuranceRequestDAO.GeneralInsuranceRequestDAOLocal;
 import tech.lapsa.insurance.dao.GeneralInsuranceRequestDAO.GeneralInsuranceRequestDAORemote;
@@ -91,27 +90,27 @@ public abstract class AGeneralInsuranceRequestDAO<T extends InsuranceRequest>
 
 	// payment invoice number
 	filter.optionalInvoiceNumber() //
-		.map(x -> cb.equal(root.get(InsuranceRequest_.payment).get(PaymentData_.invoiceNumber), x)) //
+		.map(x -> cb.equal(root.get(InsuranceRequest_.invoiceNumber), x)) //
 		.ifPresent(whereOptions::add);
 
 	// payment reference
 	filter.optPaymentReference() //
-		.map(x -> cb.equal(root.get(InsuranceRequest_.payment).get(PaymentData_.reference), x)) //
+		.map(x -> cb.equal(root.get(InsuranceRequest_.reference), x)) //
 		.ifPresent(whereOptions::add);
 
 	// payment method name
-	Predictates.textMatches(cb, root.get(InsuranceRequest_.payment).get(PaymentData_.methodName),
+	Predictates.textMatches(cb, root.get(InsuranceRequest_.methodName),
 		filter.getPaymentMethodNameMask()) //
 		.ifPresent(whereOptions::add);
 
 	// payment card
-	Predictates.textMatches(cb, root.get(InsuranceRequest_.payment).get(PaymentData_.card),
+	Predictates.textMatches(cb, root.get(InsuranceRequest_.card),
 		filter.getPaymentCard()) //
 		.ifPresent(whereOptions::add);
 
 	// payment card bank
 	filter.optPaymentCardBank() //
-		.map(x -> cb.equal(root.get(InsuranceRequest_.payment).get(PaymentData_.cardBank), x)) //
+		.map(x -> cb.equal(root.get(InsuranceRequest_.cardBank), x)) //
 		.ifPresent(whereOptions::add);
 
 	// insurance request status
@@ -138,9 +137,7 @@ public abstract class AGeneralInsuranceRequestDAO<T extends InsuranceRequest>
 	final CriteriaQuery<T> cq = cb.createQuery(entityClass);
 	final Root<T> root = cq.from(entityClass);
 	cq.select(root)
-		.where(cb.equal(root.get(InsuranceRequest_.payment)
-			.get(PaymentData_.invoiceNumber), invoiceNumber));
-
+	.where(cb.equal(root.get(InsuranceRequest_.invoiceNumber), invoiceNumber));
 	final TypedQuery<T> q = em.createQuery(cq);
 	return q;
     }
