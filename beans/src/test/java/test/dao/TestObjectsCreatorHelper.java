@@ -9,7 +9,6 @@ import com.lapsa.insurance.domain.ContactData;
 import com.lapsa.insurance.domain.DriverLicenseData;
 import com.lapsa.insurance.domain.IdentityCardData;
 import com.lapsa.insurance.domain.OriginData;
-import com.lapsa.insurance.domain.PaymentData;
 import com.lapsa.insurance.domain.PersonalData;
 import com.lapsa.insurance.domain.RequesterData;
 import com.lapsa.insurance.domain.ResidenceData;
@@ -122,8 +121,7 @@ public class TestObjectsCreatorHelper {
 	}
 
 	{
-	    final PaymentData payment = request.getPayment();
-	    payment.setInvoiceNumber("921321321321");
+	    request.setInvoiceNumber("921321321321");
 	}
 
 	{
