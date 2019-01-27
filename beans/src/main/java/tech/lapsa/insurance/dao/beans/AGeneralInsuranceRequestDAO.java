@@ -95,22 +95,22 @@ public abstract class AGeneralInsuranceRequestDAO<T extends InsuranceRequest>
 
 	// payment reference
 	filter.optPaymentReference() //
-		.map(x -> cb.equal(root.get(InsuranceRequest_.reference), x)) //
+		.map(x -> cb.equal(root.get(InsuranceRequest_.paymentReference), x)) //
 		.ifPresent(whereOptions::add);
 
 	// payment method name
-	Predictates.textMatches(cb, root.get(InsuranceRequest_.methodName),
+	Predictates.textMatches(cb, root.get(InsuranceRequest_.paymentMethodName),
 		filter.getPaymentMethodNameMask()) //
 		.ifPresent(whereOptions::add);
 
 	// payment card
-	Predictates.textMatches(cb, root.get(InsuranceRequest_.card),
+	Predictates.textMatches(cb, root.get(InsuranceRequest_.paymentCard),
 		filter.getPaymentCard()) //
 		.ifPresent(whereOptions::add);
 
 	// payment card bank
 	filter.optPaymentCardBank() //
-		.map(x -> cb.equal(root.get(InsuranceRequest_.cardBank), x)) //
+		.map(x -> cb.equal(root.get(InsuranceRequest_.paymentCardBank), x)) //
 		.ifPresent(whereOptions::add);
 
 	// insurance request status
