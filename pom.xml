@@ -22,14 +22,14 @@
 
 	<properties>
 		<!-- BOMS -->
-		<javax-javaee-bom.version>CURRENT-SNAPSHOT</javax-javaee-bom.version>
-		<payara-bom.version>CURRENT-SNAPSHOT</payara-bom.version>
-		<java-commons.version>CURRENT-SNAPSHOT</java-commons.version>
+		<javax-javaee-bom.version>20190128r1</javax-javaee-bom.version>
+		<payara-bom.version>20190128r1</payara-bom.version>
+		<java-commons.version>20190128r1</java-commons.version>
 		<!-- tech -->
-		<patterns-dao.version>CURRENT-SNAPSHOT</patterns-dao.version>
-		<lapsa-arquillian-test.version>CURRENT-SNAPSHOT</lapsa-arquillian-test.version>
+		<patterns-dao.version>20190128r1</patterns-dao.version>
+		<lapsa-arquillian-test.version>20190128r1</lapsa-arquillian-test.version>
 		<!-- EJB clients -->
-		<insurance-dao-client.version>CURRENT-SNAPSHOT</insurance-dao-client.version>
+		<insurance-dao-client.version>20190128r1</insurance-dao-client.version>
 	</properties>
 
 	<dependencyManagement>
